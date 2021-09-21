@@ -11,10 +11,10 @@ const install = (Vue, vm) => {
 	Vue.prototype.$u.http.interceptor.request = (config) => {
 		
 		// config.header.Token = 'xxxxxx';
-		config.header.Authorization = 'Bearer ' + vm.access_token;
+		config.header.Authorization = 'Bearer ' + vm.$store.state.token;
 		
 		// 可以对某个url进行特别处理，此url参数为this.$u.get(url)中的url值
-		if(config.url == '/user/login') config.header.noToken = true;
+		// if(config.url == '/user/login') config.header.noToken = true;
 		// 最后需要将config进行return
 		return config;
 		// 如果return一个false值，则会取消本次请求
@@ -26,8 +26,10 @@ const install = (Vue, vm) => {
 		
 		if(res.statusCode == 200){
 			return res.data;
+		}else if(res.statusCode == 401){
+			return res;
 		}else{
-			return Promise.reject("请求发生未知错误~");
+			return Promise.reject("请求发生错误~");
 		}
 	}
 	
