@@ -4,6 +4,7 @@ import App from './App'
 import httpInterceptor from '@/common/http.interceptor.js'
 import API from '@/common/http.api.js'
 import store from "@/store"
+import utils from "@/common/utils.js"
 
 Vue.config.productionTip = false
 
@@ -22,6 +23,9 @@ const app = new Vue({
 // 这里需要写在最后，是为了等Vue创建对象完成，引入"app"对象(也即页面的"this"实例)
 Vue.use(httpInterceptor, app);
 Vue.use(API,app);
+
+// 自定义工具
+Vue.use(utils,app);
 
 
 let vuexStore = require("@/store/$u.mixin.js");

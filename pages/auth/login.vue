@@ -1,6 +1,6 @@
 <template>
 	<view class="login_wrap">
-		<view class="title">欢迎登录图书商城</view>
+		<view class="title">欢迎登录</view>
 		<view>
 			<input type="text" v-model="email" placeholder="test@a.com" class="u-border-bottom"/>
 			<input type="password" v-model="password" placeholder="123456" class="u-border-bottom"/>
@@ -9,6 +9,9 @@
 		<view class="u-flex u-row-between question">
 			<view>密码登录</view>
 			<view>遇到问题</view>
+		</view>
+		<view>
+			{{token}}
 		</view>
 	</view>
 </template>
@@ -41,7 +44,19 @@
 					// 缓存用户信息
 					this.$store.state.userInfo = userInfo;
 					
-					this.$u.route('/pages/center/index');
+					this.$u.toast("登录成功");
+					// 登录之后，跳转到来源页
+					let back_url = uni.getStorageSync('back_url') || 'pages/index/index';
+					
+					setTimeout(()=>{
+						this.$u.route({
+							type:'reLaunch',
+							url:back_url
+						})
+					},1500);
+					
+					
+					
 				}catch(e){
 					this.$u.toast("用户名或密码错误");
 				}
@@ -68,8 +83,9 @@
 		padding: 20px;
 		.title{
 			text-align: center;
-			font-size: 20px;
+			font-size: 25px;
 			margin: 40px 0;
+			letter-spacing: 3px;
 		}
 		input{
 			margin: 20px 0;

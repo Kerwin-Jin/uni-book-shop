@@ -3,7 +3,7 @@ const install = (Vue, vm) => {
 	// 此为自定义配置参数，具体参数见上方说明
 	Vue.prototype.$u.http.setConfig({
 		baseUrl: 'https://api.shop.eduwork.cn',
-		loadingText: '努力加载中~',
+		// loadingText: '努力加载中~',
 		loadingTime: 500,
 		originalData: true
 	});
