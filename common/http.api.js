@@ -4,7 +4,8 @@ const install = (Vue,vm)=>{
 	const getIndexData = (params={})=>vm.$u.get('/api/index', params);
 	
 	// 认证相关
-	const authLogin = params => vm.$u.post('/api/auth/login', params);
+	const authLogin = params => vm.$u.post('/api/auth/login', params);			//登录
+	const authRegister = params => vm.$u.post('/api/auth/register', params);	//注册
 	
 	// 订单相关
 	
@@ -15,7 +16,8 @@ const install = (Vue,vm)=>{
 	vm.$u.api = {
 		getIndexData,
 		authLogin,
-		getUserInfo
+		getUserInfo,
+		authRegister
 	}
 }
 

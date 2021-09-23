@@ -30,6 +30,9 @@
 		},
 		onLoad() {
 			this.getData();
+			
+			this.$u.utils.isLogin();
+			
 		},
 		
 		// 触底加载新的一页

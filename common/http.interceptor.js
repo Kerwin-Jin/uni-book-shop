@@ -28,8 +28,10 @@ const install = (Vue, vm) => {
 			return res.data;
 		}else if(res.statusCode == 401){
 			return res;
+		}else if(res.statusCode == 201){
+			return res;
 		}else{
-			return Promise.reject("请求发生错误~");
+			return Promise.reject(res);
 		}
 	}
 	
