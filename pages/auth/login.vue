@@ -31,6 +31,8 @@
 					email:this.email,
 					password:this.password
 				}
+				
+				
 				try{
 					// 请求API进行登录
 					let resLogin = await this.$u.api.authLogin(params);
@@ -54,12 +56,10 @@
 							url:back_url
 						})
 					},1500);
-					
-					
-					
 				}catch(e){
-					this.$u.toast("用户名或密码错误");
+					return;
 				}
+				
 			}
 		},
 		computed:{

@@ -23,16 +23,31 @@ const install = (Vue, vm) => {
 	
 	// 响应拦截，判断状态码是否通过
 	Vue.prototype.$u.http.interceptor.response = (res) => {
+
+		let {statusCode,data} = res;
 		
-		if(res.statusCode == 200){
-			return res.data;
-		}else if(res.statusCode == 401){
-			return res;
-		}else if(res.statusCode == 201){
-			return res;
+		if(statusCode<400){
+			return data;
+		}else if(statusCode == 400){
+			// 错误的请求
+			vm.$u.toast("错误请求");
+			return false;
+		}else if(statusCode == 401){
+			vm.$u.toast("验证失败，请重新登录");
+			setTimeout(()=>{
+				vm.$u.route("pages/user/login");
+			},1500);
+			return false;
+		}else if(statusCode == 422){
+			let errors = Object.values(data.errors);
+			vm.$u.toast(errors[0][0]);
+			return false;
 		}else{
-			return Promise.reject(res);
+			// 如果返回false，则会调用Promise的reject回调
+			return Promise.reject(data.message);
 		}
+		
+		
 	}
 	
 	

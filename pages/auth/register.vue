@@ -36,19 +36,19 @@
 					name:this.nickName,
 					email:this.email,
 					password:this.password,
-					confirmPass:this.confirmPass
+					password_confirmation:this.confirmPass
 				}
-				
-				let registerResult
 				try{
-					registerResult = await this.$u.api.authRegister(params);
-					this.$u.toast(registerResult);
-				}catch(e){
-					this.$u.toast(e);
+					let registerResult = await this.$u.api.authRegister(params);
+					
+					// 登录成功之后重定向到登录
+					this.$u.route({
+						type:'redirect',
+						url:'pages/auth/login'
+					})
+				}catch{
+					return;
 				}
-				 
-				console.log(registerResult);
-				
 			}
 		},
 		computed:{
